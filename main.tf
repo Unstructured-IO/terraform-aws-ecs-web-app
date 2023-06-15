@@ -135,8 +135,7 @@ locals {
 }
 
 module "ecs_alb_service_task" {
-  source  = "cloudposse/ecs-alb-service-task/aws"
-  version = "0.64.1"
+  source  = "github.com/Unstructured-IO/terraform-aws-ecs-alb-service-task?ref=ea690a3"
 
   alb_security_group                 = var.alb_security_group
   use_alb_security_group             = var.use_alb_security_group
@@ -153,6 +152,7 @@ module "ecs_alb_service_task" {
   ecs_cluster_arn                    = var.ecs_cluster_arn
   capacity_provider_strategies       = var.capacity_provider_strategies
   service_registries                 = var.service_registries
+  service_connect_configuration      = var.service_connect_configuration
   launch_type                        = var.launch_type
   enable_all_egress_rule             = var.enable_all_egress_rule
   platform_version                   = var.platform_version
