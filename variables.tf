@@ -217,23 +217,6 @@ variable "service_registries" {
   default     = []
 }
 
-variable "service_connect_configuration" {
-  type = object({
-    enabled           = bool
-    namespace         = string
-    log_configuration = any
-    service           = any
-  })
-  description = "See `service_connect_configuration docs https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service.html#service_connect_configuration"
-  default     = {
-    enabled = false
-    namespace = ""
-    log_configuration = {}
-    service = {}
-  }
-}
-
-
 variable "volumes" {
   type = list(object({
     host_path = string
