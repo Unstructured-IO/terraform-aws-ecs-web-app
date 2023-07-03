@@ -115,7 +115,12 @@ locals {
     elb_name         = null
     target_group_arn = var.nlb_ingress_target_group_arn
   }
-  load_balancers = var.nlb_ingress_target_group_arn != "" ? [local.alb, local.nlb] : [local.alb]
+
+  # Note(austin) - the nlb port defaults to 80, so if we've changed that, add a second load_balancer block
+  # This removes a dependency on the arn being unknown during planning and blocking an upstream usage of count
+  # See comments in https://github.com/Unstructured-IO/devops/pull/147
+  #load_balancers = var.nlb_ingress_target_group_arn != "" ? [local.alb, local.nlb] : [local.alb]
+  load_balancers = var.nlb_container_port != 80 ? [local.alb, local.nlb] : [local.alb]
   init_container_definitions = [
     for init_container in var.init_containers : lookup(init_container, "container_definition")
   ]
